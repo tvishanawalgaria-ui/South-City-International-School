@@ -13,3 +13,34 @@ Setup Instructions
 Connect the tripwire sensor to the Arduino Uno digital input pin and attach the buzzer and LED to the designated output pins with appropriate resistors. Power the Arduino Uno using a USB cable or external power source. Open the Arduino IDE, upload the C++ program, and verify successful compilation. Position the tripwire across the area that requires protection and test the system by interrupting the wire. When the tripwire is triggered, the Arduino instantly processes the input signal and activates the buzzer and LED, alerting users to unauthorized movement. This simple setup demonstrates how basic electronic components and embedded programming can be combined to create an effective, low-cost, and easily expandable security solution suitable for both educational purposes and practical application
 
 Materials used :Arduino UNO , Jumper wires , Buzzer , LDR , LED Cable  
+
+
+code used-
+
+//Arduino LDR Laser Security System
+int idrPin = A0;  //LDR pin connected to A0
+int buzzerPin = 8;  //Buzzer pin connected to 8 
+int ldrValue = 0;  //Variable to store LDR value
+int threshold = 500; //Threshold to detect interruption
+
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(buzzerPin,OUTPUT);
+  pinMode(idrPin,INPUT);
+}
+
+
+void loop() {
+ldrValue = analogRead(ldrPin); // Read LDR Value
+  Serial.println(ldrValue);  // Print value to serial monitor
+
+
+  //If LDR value drops below threshold, trigger buzzer
+  if (ldrValue < threshold){
+    digitalWrite(buzzerPin, HIGH);
+    delay(100);
+  }else{
+    digitalWrite(buzzerPin, LOW); //Turn off buzzer
+  }
+}
